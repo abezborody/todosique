@@ -1,0 +1,45 @@
+// "tasks", "todo", "plans"
+$tasks: #2d9cdb;
+$todo: #bb6bd9;
+$plans: #f2994a;
+
+@mixin label-container($type) {
+  display: flex;
+  align-items: center;
+  justify-content: flex-center;
+  border-radius: 100px;
+  background-color: $type;
+
+  padding: 0.4rem 1.2rem;
+}
+
+@mixin label-badge($type) {
+  width: 8px;
+  height: 8px;
+  background-color: $type;
+}
+
+.label__container--tasks {
+  @include label-container($tasks);
+}
+.label__container--todo {
+  @include label-container($todo);
+}
+.label__container--plans {
+  @include label-container($plans);
+}
+
+.label__badge--tasks {
+  @include label-badge($tasks);
+}
+.label__badge--todo {
+  @include label-badge($todo);
+}
+.label__badge--plans {
+  @include label-badge($plans);
+}
+
+.label__title {
+  font-size: 0.6rem;
+  font-weight: 700;
+}
