@@ -1,22 +1,20 @@
 import DeleteButton from "../DeleteButton/DeleteButton.component";
-import Label from "../Label/Label.component";
 
 import "./TaskItem.styles.scss";
 
 const TaskItem = ({ taskData }) => {
-  const { title, description, priority, labels } = taskData;
+  const { title, description, priority, project } = taskData;
 
   return (
     <div className="task-item">
+      <div className={`task-item__priority ${priority.toLowerCase()}`}></div>
       <div className="task-item__title-container">
-        <span>{priority}</span>
+        <div className="task-item__project-container">
+          <span className="task-item__project">{project}</span>
+        </div>
         <span className="task-item__title">{title}</span>
         <DeleteButton className="task-item__delete-button" />
       </div>
-      {/* {labels.length
-        ? labels.map((label) => <Label key={label} type={label} />)
-        : ""} */}
-      {/* <Label type={labels[0]} /> */}
       <span className="task-item__description">{description}</span>
     </div>
   );

@@ -1,11 +1,18 @@
 .delete-button__container {
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   margin-left: auto;
+  border-radius: 50rem;
+  transition: background-color 100ms ease-out;
+
+  &:hover {
+    background-color: #00000010;
+    transition: background-color 100ms ease-out;
+  }
 }
 
 .delete-button__icon {
