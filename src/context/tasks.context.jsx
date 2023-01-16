@@ -1,65 +1,81 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useState } from "react";
 
-import { createAction } from "./createAction.utils";
+import { TASKS_DATA } from "../tasks";
+
+const addTask = (tasksArr, taskToAdd) => {
+  return [{ ...taskToAdd }, ...tasksArr];
+};
+
+const removeTask = (tasksArr, taskToDelete) => {
+  return tasksArr.filter((task) => task.id !== taskToDelete.id);
+};
+
+const setDone = (tasksArr, taskToDone) => {
+  return tasksArr.map((task) =>
+    task.id === taskToDone.id ? { ...task, isDone: !task.isDone } : task
+  );
+};
 
 export const TasksContext = createContext({
   tasks: [],
+  addNewTask: () => {},
+  deleteTask: () => {},
   totalTasks: 0,
+  setTaskDone: () => {},
   totalDoneTasks: 0,
   isFormOpen: false,
   setIsFormOpen: () => {},
-  addNewTask: () => {},
-  setTaskDone: () => {},
-  deleteTask: () => {},
 });
 
-const INITIAL_STATE = {
-  tasks: [],
-  totalTasks: 0,
-  totalDoneTasks: 0,
-  isFormOpen: false,
-};
-
-const TASKS_ACTION_TYPES = {
-  SET_IS_FORM_OPEN: "SET_IS_FORM_OPEN",
-};
-
-const tasksReducer = (state, action) => {
-  const { type, payload } = action;
-
-  switch (type) {
-    case TASKS_ACTION_TYPES.SET_IS_FORM_OPEN:
-      return {
-        ...state,
-        isFormOpen: payload,
-      };
-    default:
-      throw new Error(`Unhandled type of ${type} in cartReducer`);
-  }
-};
-
 export const TasksProvider = ({ children }) => {
-  const [{ tasks, totalTasks, totalDoneTasks, isFormOpen }, dispatch] =
-    useReducer(tasksReducer, INITIAL_STATE);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [tasks, setTasks] = useState([]);
+  const [totalTasks, setTotalTasks] = useState(0);
+  const [totalDoneTasks, setTotalDoneTasks] = useState(0);
+
+  // init tasks
+  useEffect(() => {
+    setTasks(TASKS_DATA.items);
+  }, []);
 
   // addTask
-  const addNewTask = () => {};
+  const addNewTask = (taskToAdd) => {
+    setTasks(addTask(tasks, taskToAdd));
+  };
+
+  // setTaskDone
+  const setTaskDone = (taskToDone) => {
+    setTasks(setDone(tasks, taskToDone));
+  };
+
+  // deleteTask
+  const deleteTask = (taskToDetele) => {
+    setTasks(removeTask(tasks, taskToDetele));
+  };
 
   // totalTasks
+  useEffect(() => {
+    const newTotalTasksCount = tasks.reduce((total) => total + 1, 0);
+    setTotalTasks(newTotalTasksCount);
+  }, [tasks]);
 
   // Done tasks
-
-  // isFormOpen
-  const setIsFormOpen = (bool) => {
-    dispatch(createAction(TASKS_ACTION_TYPES.SET_IS_FORM_OPEN, bool));
-  };
+  useEffect(() => {
+    const totalDoneTasks = tasks.reduce(
+      (total, task) => (task.isDone ? total + 1 : total),
+      0
+    );
+    setTotalDoneTasks(totalDoneTasks);
+  }, [tasks]);
 
   const value = {
     tasks,
+    addNewTask,
+    deleteTask,
     totalTasks,
+    setTaskDone,
     totalDoneTasks,
     isFormOpen,
-    addNewTask,
     setIsFormOpen,
   };
 

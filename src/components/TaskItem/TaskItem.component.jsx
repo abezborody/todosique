@@ -1,4 +1,5 @@
 import DeleteButton from "../DeleteButton/DeleteButton.component";
+import DoneButton from "../DoneButton/DoneButton.component";
 
 import "./TaskItem.styles.scss";
 
@@ -9,11 +10,14 @@ const TaskItem = ({ taskData }) => {
     <div className="task-item">
       <div className={`task-item__priority ${priority.toLowerCase()}`}></div>
       <div className="task-item__title-container">
-        <div className="task-item__project-container">
-          <span className="task-item__project">{project}</span>
-        </div>
+        {project && (
+          <div className="task-item__project-container">
+            <span className="task-item__project">{project}</span>
+          </div>
+        )}
         <span className="task-item__title">{title}</span>
-        <DeleteButton className="task-item__delete-button" />
+        <DoneButton task={taskData} />
+        <DeleteButton task={taskData} />
       </div>
       <span className="task-item__description">{description}</span>
     </div>

@@ -1,8 +1,10 @@
+import { guid } from "./context/idGenerator";
+
 export const TASKS_DATA = {
   title: "tasks",
   items: [
     {
-      id: 1,
+      id: guid(),
       title: "Task title 1",
       description: "Task description about task",
       project: "inbox",
@@ -12,7 +14,7 @@ export const TASKS_DATA = {
       isDone: false,
     },
     {
-      id: 2,
+      id: guid(),
       title: "Task title 2",
       description: "Task description about task",
       project: "work",
@@ -22,7 +24,7 @@ export const TASKS_DATA = {
       isDone: false,
     },
     {
-      id: 3,
+      id: guid(),
       title: "Task title 3",
       description: "Task description about task",
       project: "inbox",
@@ -32,7 +34,7 @@ export const TASKS_DATA = {
       isDone: false,
     },
     {
-      id: 4,
+      id: guid(),
       title: "Task title 4",
       description: "Task description about task",
       project: "home",
@@ -42,7 +44,7 @@ export const TASKS_DATA = {
       isDone: false,
     },
     {
-      id: 5,
+      id: guid(),
       title: "Task title 5",
       description: "Task description about task",
       project: "inbox",

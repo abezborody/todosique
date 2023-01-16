@@ -1,16 +1,33 @@
 import { useContext, useState } from "react";
+import { guid } from "../../context/idGenerator";
 
 import { TasksContext } from "../../context/tasks.context";
 
 import "./NewTaskForm.styles.scss";
 
+// {
+//   id: 1,
+//   title: "Task title 1",
+//   description: 'Task description about task',
+//   project: 'inbox',
+//   date: new Date(1231123),
+//   priority: 'HIGH',
+//   labels: [tasks, todo, plans],
+// isDone: false,
+// },
+
 const NewTaskForm = () => {
-  const { setIsFormOpen } = useContext(TasksContext);
+  const { setIsFormOpen, addNewTask } = useContext(TasksContext);
+
   const defaultFormFields = {
+    id: guid(),
     title: "",
     description: "",
     project: "",
+    date: new Date(),
     priority: "",
+    labels: [],
+    isDone: false,
   };
 
   const [formFields, setFormFields] = useState(defaultFormFields);
@@ -26,9 +43,11 @@ const NewTaskForm = () => {
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const onFormSubmitHandler = () => {
-    console.log(formFields);
+  const onFormSubmitHandler = (e) => {
+    e.preventDefault();
+    addNewTask(formFields);
     resetForm();
+    setIsFormOpen(false);
   };
 
   const closeFormHandle = () => {
@@ -36,21 +55,22 @@ const NewTaskForm = () => {
   };
 
   return (
-    <div>
-      <h2>Add new task:</h2>
+    <div className="new-task-form__container">
+      <div className="new-task__title">Add new task:</div>
       <form className="new-task__form" onSubmit={onFormSubmitHandler}>
         <select
           onChange={onChangeHandler}
-          className="new-task__select"
+          className="new-task__field new-task__select"
           name="project"
           value={project}
         >
+          <option value="">Select project</option>
           <option value="inbox">Inbox</option>
           <option value="work">Work</option>
           <option value="home">Home</option>
         </select>
         <input
-          className="new-task__input"
+          className="new-task__field new-task__input"
           label="Title"
           placeholder="Title"
           type="text"
@@ -60,6 +80,7 @@ const NewTaskForm = () => {
           onChange={onChangeHandler}
         />
         <input
+          className="new-task__field"
           label="Description"
           placeholder="Description"
           type="text"
@@ -68,7 +89,13 @@ const NewTaskForm = () => {
           value={description}
           onChange={onChangeHandler}
         />
-        <select onChange={onChangeHandler} name="priority" value={priority}>
+        <select
+          className="new-task__field"
+          onChange={onChangeHandler}
+          name="priority"
+          value={priority}
+        >
+          <option value="">Select priority</option>
           <option value="LOW">Low</option>
           <option value="MEDIUM">Medium</option>
           <option value="HIGH">High</option>
@@ -81,13 +108,3 @@ const NewTaskForm = () => {
 };
 
 export default NewTaskForm;
-
-// {
-//   id: 1,
-//   title: "Task title 1",
-//   description: 'Task description about task',
-//   project: 'inbox',
-//   date: new Date(1231123),
-//   priority: 'HIGH',
-//   labels: [tasks, todo, plans]
-// },

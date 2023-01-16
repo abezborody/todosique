@@ -1,22 +1,22 @@
-/**
- * @todo: complete taskview
- * @todo: gap
- * @todo: add task form
- *
- */
-
-import { TASKS_DATA } from "../../tasks";
+import { useContext } from "react";
+import { TasksContext } from "../../context/tasks.context";
 
 import TaskItem from "../TaskItem/TaskItem.component";
+import TasksTotals from "../TasksTotals/TasksTotals.component";
 
 const TasksList = () => {
-  const { items } = TASKS_DATA;
+  const { tasks } = useContext(TasksContext);
 
   return (
     <div>
-      {items.length
-        ? items.map((task) => <TaskItem key={task.id} taskData={task} />)
-        : "Sorry, there is no tasks. Try add some!"}
+      {tasks.length ? (
+        tasks.map((task) => <TaskItem key={task.id} taskData={task} />)
+      ) : (
+        <div className="no-tasks__message">
+          Sorry, there is no tasks. Try add some!
+        </div>
+      )}
+      <TasksTotals />
     </div>
   );
 };
