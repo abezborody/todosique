@@ -3,6 +3,7 @@ import { guid } from "../../context/idGenerator";
 
 import { TasksContext } from "../../context/tasks.context";
 
+import Button from "../Button/Button.compnent";
 import "./NewTaskForm.styles.scss";
 
 // {
@@ -50,7 +51,8 @@ const NewTaskForm = () => {
     setIsFormOpen(false);
   };
 
-  const closeFormHandle = () => {
+  const closeFormHandle = (e) => {
+    e.preventDefault();
     setIsFormOpen(false);
   };
 
@@ -100,9 +102,13 @@ const NewTaskForm = () => {
           <option value="MEDIUM">Medium</option>
           <option value="HIGH">High</option>
         </select>
-        <button>Create task</button>
+        <div className="new-task__buttons-container">
+          <Button onClick={closeFormHandle}>Cancel</Button>
+          <Button buttonType={"done"} onSubmit={onFormSubmitHandler}>
+            Create task
+          </Button>
+        </div>
       </form>
-      <button onClick={closeFormHandle}>Cancel</button>
     </div>
   );
 };

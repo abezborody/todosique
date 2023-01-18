@@ -10,7 +10,7 @@ const NewTaskAddButton = () => {
   };
 
   return (
-    <div className="new-task-form__container">
+    <div className="new-task-form__container add">
       <div className="new-task__button" onClick={openFormHandler}>
         <span className="new-task__plus-icon">+</span>
         <span>Add new task</span>

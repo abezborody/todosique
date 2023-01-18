@@ -1,4 +1,7 @@
+@import "../../styles/variables.scss";
+
 .task-totals__container {
+  cursor: default;
   display: flex;
   width: 48rem;
   align-items: center;
@@ -25,10 +28,10 @@
 }
 
 .done {
-  background-color: #27ae60;
-  color: #fff;
+  background-color: $doneColor;
+  color: $textLight1Color;
 
-  box-shadow: 0px 0px 0px 0px rgba(39, 174, 95, 1);
+  box-shadow: 0px 0px 0px 0px $doneColor;
   animation: pulse 2s infinite;
 
   &:hover {
