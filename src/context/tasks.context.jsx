@@ -70,6 +70,7 @@ export const TasksProvider = ({ children }) => {
 
   const value = {
     tasks,
+    setTasks,
     addNewTask,
     deleteTask,
     totalTasks,

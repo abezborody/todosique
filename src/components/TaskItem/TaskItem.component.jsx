@@ -1,13 +1,21 @@
 import DeleteButton from "../DeleteButton/DeleteButton.component";
 import DoneButton from "../DoneButton/DoneButton.component";
 
+import { useMotionValue, Reorder } from "framer-motion";
+
 import "./TaskItem.styles.scss";
 
 const TaskItem = ({ taskData }) => {
   const { title, description, priority, project } = taskData;
+  const y = useMotionValue(0);
 
   return (
-    <div className="task-item">
+    <Reorder.Item
+      value={taskData}
+      id={taskData}
+      style={{ y }}
+      className="task-item"
+    >
       <div className={`task-item__priority ${priority.toLowerCase()}`}></div>
       <div className="task-item__title-container">
         {project && (
@@ -20,7 +28,7 @@ const TaskItem = ({ taskData }) => {
         <DeleteButton task={taskData} />
       </div>
       <span className="task-item__description">{description}</span>
-    </div>
+    </Reorder.Item>
   );
 };
 
