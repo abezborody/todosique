@@ -1,11 +1,8 @@
-# .todosique : Tiny To-do list app.
+# [old] .todosique : Tiny To-do list app.
 
-## In Plans
+[Link to project](https://bespoke-salamander-b921d8.netlify.app/)
 
-1. Firebase login
-2. Sync and add tasks to firestore
-3. Badges (with react-select component)
-4. Add somy style
-5. Edit task
-6. Redesign(maybe with Light/Dark mode)
+## In this project i used: 
 
+- [ReactJS](https://react.dev/)
+- [Framer Motion](https://www.npmjs.com/package/framer-motion/)
